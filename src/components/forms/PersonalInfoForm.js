@@ -91,13 +91,13 @@ function GeneralInfo() {
                 <Divider orientation="left">contact info</Divider>
                 <Col>
                     <section>
-                        <label htmlFor="Email">Email address <span className="span">
+                        <label htmlFor="email">Email address <span className="span">
                         *
                     </span></label><br/>
-                        <Field name="Email">
+                        <Field name="email">
                             {({field, form}) => (
                                 <>
-                                    <Input {...field} placeholder="Email"/>
+                                    <Input {...field} placeholder="Email address"/>
                                     {form.errors.email && form.touched.email && (
                                         <div style={{color: "red", fontSize: 12}}>
                                             {form.errors.email}

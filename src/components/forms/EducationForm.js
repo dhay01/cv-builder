@@ -27,19 +27,6 @@ function EducationForm() {
 
             </Row>
             <br/>
-
-            {/*<Field name="year">*/}
-            {/*    {({field, form}) => (*/}
-            {/*        <>*/}
-
-            {/*            <Input maxLength={4} {...field} placeholder="your graduation year"/>*/}
-            {/*            {form.errors.universityOrInstitute && form.touched.universityOrInstitute && (*/}
-            {/*                <div style={{color: "red", fontSize: 12}}>{form.errors.universityOrInstitute}</div>*/}
-            {/*            )}*/}
-
-            {/*        </>*/}
-            {/*    )}*/}
-            {/*</Field>*/}
             <Row>
                 <section>
                     <label  htmlFor="major">major <span className="span" >

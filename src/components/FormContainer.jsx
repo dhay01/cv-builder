@@ -5,34 +5,31 @@ import * as Yup from "yup";
 import EducationForm from "./forms/EducationForm";
 import GeneralInfo from "./forms/PersonalInfoForm"
 import Qualifications from "./forms/Qualifications"
+import Projects from "./forms/ProjectsForm"
 import '../App.css';
+
 const {Step} = Steps;
 
 const validationSchema = Yup.object().shape({
-    firstName: Yup.string()
-        .max(15, "Must be 15 characters or less")
-        .required("Required"),
-    lastName: Yup.string()
-        .max(15, "Must be 15 characters or less")
-        .required("Required"),
-    phoneNumber: Yup.string()
-
-        .min(10, "Must be exactly 10 digits")
-        .max(10, "Must be exactly 10 digits")
-        .required("Required"),
-    email: Yup.string().email("Invalid email").required("Required"),
-    linkedIn: Yup.string().url("Invalid URL").required("Required"),
-    github: Yup.string().url("Invalid URL").required("Required"),
-    city: Yup.string().required("Required"),
-    country: Yup.string().required("Required"),
-    major: Yup.string().required("Required"),
-    university: Yup.string().required("Required"),
-    description: Yup.string().required("Required"),
-    year: Yup.date().required("Required"),
-    position: Yup.string().required("Required"),
-    organization: Yup.string().required("Required"),
-    skill: Yup.string().required("Required"),
-    Currentposition: Yup.string().required("required")
+    firstName: Yup.string().max(15, "Must be 15 characters or less").required("this field is required"),
+    lastName: Yup.string().max(15, "Must be 15 characters or less").required("this field is required"),
+    phoneNumber: Yup.string().min(11, "Must be exactly 11 digits").max(11, "Must be exactly 11 digits").required("this field is required"),
+    email: Yup.string().required("this field is required"),
+    linkedIn: Yup.string().url("Invalid URL").required("this field is required"),
+    github: Yup.string().url("Invalid URL").required("this field is required"),
+    city: Yup.string().required("this field is required"),
+    country: Yup.string().required("this field is required"),
+    Currentposition: Yup.string().required("this field is required"),
+    major: Yup.string().required("this field is required"),
+    university: Yup.string().required("this field is required"),
+    description: Yup.string().required("this field is required"),
+    year: Yup.date().required("this field is required"),
+    position: Yup.string().required("this field is required"),
+    organization: Yup.string().required("this field is required"),
+    skill: Yup.string().required("this field is required"),
+    skillDescription: Yup.string().required("this field is required"),
+    project: Yup.string().required("this field is required"),
+    projectDescription: Yup.string().required("this field is required")
 
 
 });
@@ -53,6 +50,9 @@ const App = () => {
     };
 
     const initialValues = {
+        workExperience: [],
+        skills: [],
+        projects: [],
         firstName: "",
         lastName: "",
         phoneNumber: "",
@@ -62,13 +62,16 @@ const App = () => {
         city: "",
         country: "",
         university: "",
-        year: null,
         major: "",
         description: "",
         Currentposition: "",
-        organization:"",
-        skill:"",
+        organization: "",
+        skill: "",
         position: "",
+        skillDescription: "",
+        project: "",
+        projectDescription: "",
+
 
     };
 
@@ -98,23 +101,15 @@ const App = () => {
         {
             title: "projects",
             content: (
-                <>
-                    <Field name="description" as={Input.TextArea} placeholder="Description"/>
-                </>
+                <Projects/>
             ),
         },
-        {
-            title: "last step",
-            content: (
-                <>
-                    <Field name="description" as={Input.TextArea} placeholder="Description"/>
-                </>
-            ),
-        },
+
     ];
 
     const submitForm = (values) => {
         console.log("Form data:", values);
+
     };
 
     return (
@@ -138,40 +133,46 @@ const App = () => {
                 validationSchema={validationSchema}
                 onSubmit={submitForm}
             >
-                {({errors, touched}) => (
-                    <Form>
-                        {items[current].content}
-                        <div
-                            style={{
-                                display: "flex",
-                                justifyContent: "space-between",
-                                marginTop: 40,
 
-                            }}
-                        >
-                            {current > 0 && (
-                                <Button type="default" onClick={prev}>
-                                    Previous
-                                </Button>
-                            )}
-                            {current < items.length - 1 && (
-                                <Button type="primary" onClick={next}>
-                                    Next
-                                </Button>
-                            )}
-                            {current === items.length - 1 && (
-                                <Button type="primary" htmlType="submit">
-                                    Submit
-                                </Button>
-                            )}
-                        </div>
+                {({errors, touched}) => {
+                    console.log('errors:', errors);
+                    console.log('touched:', touched);
+                    return (<Form>
+                            {items[current].content}
+                            <div
+                                style={{
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                    marginTop: 40,
+
+                                }}
+                            >
+                                {current > 0 && (
+                                    <Button type="default" onClick={prev}>
+                                        Previous
+                                    </Button>
+                                )}
+                                {current < items.length - 1 && (
+                                    <Button type="primary" onClick={next}>
+                                        Next
+                                    </Button>
+                                )}
+                                {current === items.length - 1 && (
+                                    <Button type="primary" htmlType="submit">
+                                        Submit
+                                    </Button>
+                                )}
+                            </div>
 
 
-                    </Form>
-                )}
-            </Formik>
-        </div>
-    );
-};
+                        </Form>
+                    );
 
-export default App;
+                }
+                }
+                    </Formik>
+                    </div>
+                    );
+                };
+
+                export default App;
