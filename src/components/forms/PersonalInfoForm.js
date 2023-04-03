@@ -173,16 +173,16 @@ function GeneralInfo() {
             <Row>
                 <Col>
                     <section>
-                        <label htmlFor="Currentposition">position <span className="span">
+                        <label htmlFor="currentposition">position <span className="span">
                         *
                     </span></label><br/>
-                        <Field name="Currentposition">
+                        <Field name="currentposition">
 
                             {({field, form}) => (
                                 <>
                                     <Input {...field} placeholder="enter your current position.."/>
-                                    {form.errors.Currentposition && form.touched.Currentposition && (
-                                        <div style={{color: "red", fontSize: 12}}>{form.errors.Currentposition}</div>
+                                    {form.errors.currentposition && form.touched.currentposition && (
+                                        <div style={{color: "red", fontSize: 12}}>{form.errors.currentposition}</div>
                                     )}
                                 </>
                             )}

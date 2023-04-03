@@ -13,3 +13,20 @@ label{
     color: red;
 }
 
+
+.cv-header{
+    padding-top: 15px;
+    background-color: rgba(175, 175, 175, 0.2);
+    border-radius: 2px;
+}
+
+.sub{
+    color: #c6cbce;
+    padding-left: 20px;
+    padding-top: 5px;
+
+}
+.line{
+    display: inline-flex
+
+}

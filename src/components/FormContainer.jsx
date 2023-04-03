@@ -1,12 +1,16 @@
-import React, {useState} from "react";
-import {Button, Steps, Input} from "antd";
-import {Formik, Form, Field} from "formik";
+import React, {useState, useEffect} from "react";
+import {Button, Steps, Spin} from "antd";
+import {Formik, Form} from "formik";
 import * as Yup from "yup";
+import {useNavigate} from "react-router-dom";
 import EducationForm from "./forms/EducationForm";
 import GeneralInfo from "./forms/PersonalInfoForm"
 import Qualifications from "./forms/Qualifications"
 import Projects from "./forms/ProjectsForm"
 import '../App.css';
+import DisplayData from "./Display";
+
+
 
 const {Step} = Steps;
 
@@ -19,25 +23,24 @@ const validationSchema = Yup.object().shape({
     github: Yup.string().url("Invalid URL").required("this field is required"),
     city: Yup.string().required("this field is required"),
     country: Yup.string().required("this field is required"),
-    Currentposition: Yup.string().required("this field is required"),
+    currentposition: Yup.string().required("this field is required"),
     major: Yup.string().required("this field is required"),
     university: Yup.string().required("this field is required"),
     description: Yup.string().required("this field is required"),
-    year: Yup.date().required("this field is required"),
-    position: Yup.string().required("this field is required"),
-    organization: Yup.string().required("this field is required"),
-    skill: Yup.string().required("this field is required"),
-    skillDescription: Yup.string().required("this field is required"),
-    project: Yup.string().required("this field is required"),
-    projectDescription: Yup.string().required("this field is required")
 
 
 });
 
-const App = () => {
+const FormContainer = () => {
+    const [submittedData, setSubmittedData] = useState({});
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({});
-
+    const [isLoading, setIsLoading] = useState(false);
     const [current, setCurrent] = useState(0);
+    const routeChange = () => {
+        let path = `/display`;
+        navigate(path);
+    }
     const next = (values) => {
         setFormData(values);
         setCurrent(current + 1);
@@ -48,23 +51,28 @@ const App = () => {
         setFormData({...values, ...formData});
         setCurrent(current - 1);
     };
+    useEffect(() => {
+        if (Object.keys(submittedData).length > 0) {
+            localStorage.setItem("formData", JSON.stringify(submittedData));
+        }
+    }, [submittedData]);
 
     const initialValues = {
         workExperience: [],
         skills: [],
         projects: [],
-        firstName: "",
-        lastName: "",
-        phoneNumber: "",
-        email: "",
-        linkedIn: "",
-        github: "",
-        city: "",
-        country: "",
-        university: "",
-        major: "",
-        description: "",
-        Currentposition: "",
+        firstName: "dhay",
+        lastName: "salih",
+        phoneNumber: "07715069649",
+        email: "dhaysalih18@gmail.com",
+        linkedIn: "https://www.linkedin.com/in/dhay-salih-66ba6618a/",
+        github: "https://github.com/dhay01",
+        city: "baghdad",
+        country: "iraq",
+        university: "university of technology",
+        major: "engineering",
+        description: "lorem ipsum",
+        currentposition: "front-end developer",
         organization: "",
         skill: "",
         position: "",
@@ -105,12 +113,9 @@ const App = () => {
             ),
         },
 
+
     ];
 
-    const submitForm = (values) => {
-        console.log("Form data:", values);
-
-    };
 
     return (
         <div style={{
@@ -131,7 +136,20 @@ const App = () => {
             <Formik
                 initialValues={initialValues}
                 validationSchema={validationSchema}
-                onSubmit={submitForm}
+                onSubmit={(values) => {
+                    setIsLoading(true);
+                    setFormData(values);
+                    setSubmittedData(values);
+                    console.log(values);
+                    setTimeout(() => {
+                        setIsLoading(false);
+                        navigate("/display");
+                    }, 2000);
+
+
+
+                }}
+
             >
 
                 {({errors, touched}) => {
@@ -158,8 +176,8 @@ const App = () => {
                                     </Button>
                                 )}
                                 {current === items.length - 1 && (
-                                    <Button type="primary" htmlType="submit">
-                                        Submit
+                                    <Button type="primary"  htmlType="submit" disabled={isLoading}>
+                                        {isLoading ? <Spin /> : "generate cv"}
                                     </Button>
                                 )}
                             </div>
@@ -170,9 +188,9 @@ const App = () => {
 
                 }
                 }
-                    </Formik>
-                    </div>
-                    );
-                };
+            </Formik>
+        </div>
+    );
+};
 
-                export default App;
+export default FormContainer;
