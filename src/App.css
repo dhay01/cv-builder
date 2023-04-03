@@ -30,3 +30,8 @@ label{
     display: inline-flex
 
 }
+
+.container{
+    padding-bottom: 30px;
+    padding-top: 10px;
+}

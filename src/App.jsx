@@ -14,7 +14,7 @@ function App() {
         <div className="App">
             <Header />
             <Router>
-                <Container>
+                <Container className="container" >
                     <Row>
                         <Col></Col>
                         <Col xs={10}>
